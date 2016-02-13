@@ -1,0 +1,235 @@
+﻿<style>
+    .form-control:focus {
+        border-color: #6A1B9A;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 2px #6A1B9A;
+    }
+
+    body, html {
+        height: 100%;
+    } 
+
+.clock {
+    width: 100%;
+    height: 100%;
+}
+
+#Date {
+    font-size: 24px;
+    text-align: center;
+}
+
+#Time {
+    font-size: 32px;
+    text-align: center;
+}
+
+
+
+#point {
+   /* position: relative;
+    animation: mymove 1s ease infinite;
+    -moz-animation: mymove 1s ease infinite;
+    -webkit-animation: mymove 1s ease infinite;*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Simple Animation */
+/*@-webkit-keyframes mymove {
+    0% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    }
+
+    50% {
+        opacity: 0;
+        text-shadow: none;
+    }
+
+    100% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    }	
+}*/
+
+/*@-moz-keyframes mymove {
+    0% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    }
+
+    50% {
+        opacity: 0;
+        text-shadow: none;
+    }
+
+    100% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    }
+}*/
+
+</style>
+
+
+<div class="gridListdemoBasicUsage">
+    <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-lg="3" md-cols-gt-lg="6" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px">
+
+        <md-grid-tile md-rowspan="3" md-colspan="4" md-colspan-sm="1" md-colspan-md="2">
+            <md-card style="height:100%; width:100%;">
+                <md-card-content>
+                    <md-button class="md-icon-button md-primary" aria-label="Nuevo Paciente" style="float: right;" ng-href="/#/pacientes/new">
+                        <md-tooltip md-direction="top">Nuevo Paciente</md-tooltip>
+                        <i class="fa fa-plus-square"></i>
+                   </md-button>
+                   <h2 class="md-title">Pacientes Actuales</h2><br />
+                    
+                    <form layout="row" layout-sm="column" layout-align="center center">
+                        <div class="form-group" flex flex-sm="100">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+                                <input type="text" class="form-control" placeholder="Buscar paciente en la lista" ng-model="searchObject" ng-change="filterObject(searchObject)">
+                            </div>
+                        </div>
+                        <div flex="20" flex-sm="100">
+                            <md-button type="button" class="md-raised" ng-href="#/pacientes/list" flex-sm="100"> Ver mas</md-button>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table ng-table="tableParams" class="table table-hover table-striped table-bordered">
+                            <thead>
+
+                                <tr>
+                                    <th custom-sort sort="sort" order="'Name'" ng-click="sortObject()"> Nombres </th>
+                                    <th custom-sort sort="sort" order="'Nit'" ng-click="sortObject()"> Identificacion </th>
+                                    <th custom-sort sort="sort" order="'RH'" ng-click="sortObject()"> RH </th>
+                                    <th> Ver </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="object in pagedItems[currentPage]">
+                                    <td>{{object.Name}} {{object.LastName}}</td>
+                                    <td>{{object.Nit}}</td>
+                                    <td>{{object.RH}}</td>
+                                    <td width="5%">
+                                        <md-button class="md-fab md-primary md-mini md-raised" aria-label="Detalles" ng-click="showDialog($event, object.Id)">
+                                            <md-tooltip md-direction="right">Detalles</md-tooltip>
+                                            <i class="fa fa-search"></i>
+                                        </md-button>
+                                    </td>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="pagination pull-right">
+                                            <li ng-class="{disabled: currentPage == 0}">
+                                                <a href ng-click="prevPage()">« Anterior</a>
+                                            </li>
+
+                                            <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                                ng-class="{active: n == currentPage}"
+                                                ng-click="setPage(n)">
+                                                <a href ng-bind="n + 1">1</a>
+                                            </li>
+
+                                            <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                                <a href ng-click="nextPage()">Siguiente »</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>                   
+
+                </md-card-content>
+                
+            </md-card>
+
+        </md-grid-tile>
+
+        <md-grid-tile md-colspan="2" md-colspan-sm="1" md-colspan-md="2" md-colspan-lg="3">
+            <md-card style="height:100%; width:100%">
+                <md-card-content style="height:100%;">
+                    <div class="clock" layout="column" layout-align="center center">
+                        <div id="Date"></div>
+                        <div layout="row" layout-align="center center" id="Time">
+                            <div id="hours"></div>
+                            <div id="point">:</div>
+                            <div id="min"></div>
+                            <div id="point">:</div>
+                            <div id="sec"></div>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </md-grid-tile>
+
+        <md-grid-tile md-rowspan="2" md-colspan="2" md-colspan-sm="1"  md-colspan-md="2">
+            <md-card style="height:100%; width:100%; background-color: rgb(255, 255, 255);">
+                <md-card-content style="height:100%; width:100%; color: #6A1B9A" layout="column" layout-align="center center">
+                    <div style="font-size: 32px;"> Numero de Pacientes </div>
+                    <div style="font-size: 160px;">{{objectList.length}}</div>
+                </md-card-content>                
+            </md-card>
+        </md-grid-tile>
+        
+        <!--<md-grid-tile md-rowspan="2" md-colspan="3" md-colspan-sm="1">
+            <md-card style="height:100%; width:100%;">
+                <md-card-content style="height:100%; width:100%;">
+                   
+                    <c3chart bindto-id="chart" chart-data="datapoints" chart-columns="datacolumns" chart-x="datax"
+                             show-labels="true" show-subchart="true" enable-zoom="true">
+                        <chart-axis>
+                            <chart-axis-x axis-id="x" axis-type="timeseries">
+                                <chart-axis-x-tick tick-format="%Y-%m-%d" />
+                            </chart-axis-x>
+                        </chart-axis>
+                    </c3chart>
+
+                </md-card-content>
+            </md-card>
+        </md-grid-tile>-->
+
+    </md-grid-list>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // Create two variable with the names of the months and days in an array
+        var monthNames = ["January", "February", "March", "April", "May", "June", "Julio", "August", "September", "October", "November", "December"];
+        var dayNames = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+
+        // Create a newDate() object
+        var newDate = new Date();
+        // Extract the current date from Date object
+        newDate.setDate(newDate.getDate());
+        // Output the day, date, month and year
+        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+
+        setInterval(function () {
+            // Create a newDate() object and extract the seconds of the current time on the visitor's
+            var seconds = new Date().getSeconds();
+            // Add a leading zero to seconds value
+            $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+           
+        }, 1000);
+
+        setInterval(function () {
+            // Create a newDate() object and extract the minutes of the current time on the visitor's
+            var minutes = new Date().getMinutes();
+            // Add a leading zero to the minutes value
+            $("#min").html((minutes < 10 ? "0" : "") + minutes);
+        }, 1000);
+
+        setInterval(function () {
+            // Create a newDate() object and extract the hours of the current time on the visitor's
+            var hours = new Date().getHours();
+            // Add a leading zero to the hours value
+            $("#hours").html((hours < 10 ? "0" : "") + hours);
+        }, 1000);
+    });
+    </script>
+
+
+</div>

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>Anamnesis</title>
+
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png" />
+
+    <link href="content/css/pace.css" rel="stylesheet" />
+    <script src="scripts/pace.js"></script>
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+   
+    <link href="content/css/loading-bar.css" rel="stylesheet" />
+    <link href="content/css/ng-table.css" rel="stylesheet" />
+    <link href="content/font-awesome.min.css" rel="stylesheet" />
+    
+    <link href="content/css/tableMaterial.css" rel="stylesheet" />
+
+    <link href="content/css/kendo/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="content/css/kendo/kendo.material.min.css" rel="stylesheet" />
+    <link href="content/css/kendo/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="content/css/kendo/kendo.dataviz.material.min.css" rel="stylesheet" />
+    <link href="content/css/angular-material.min.css" rel="stylesheet" />
+    <link href="content/css/c3.min.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
+    <link href="content/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body ng-controller="indexController" ng-cloak>
+
+    <section layout="row" layout-fill>
+        <md-sidenav ng-cloak ng-hide="!authentication.isAuth" class="md-sidenav-left md-whiteframe-z4 md-closed ng-isolate-scope md-locked-open"
+                    md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" tabindex="-1" style="position:fixed;">
+
+            <md-toolbar class="md-medium-tall" style="height:230px; min-height:230px;background-color:white;">
+                <div layout="column" layout-align="center center">
+                    <h3 class="md-toolbar-tools" style="padding-top:45px;" flex>
+                        <md-button hide-gt-md ng-click="close('left')" aria-label="Title">
+                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true" style="color: black"></span>
+                        </md-button>
+                    </h3>
+                    <div flex>
+                        <img src="/images/VERTICAL-WEB.png" width="200" />
+                    </div>
+                    <br />
+                    <!--<div class="md-toolbar-tools" style="padding-bottom:20px;" flex layout-align="center">
+                        <a ng-href="#/dashboard">
+                            <h1>PLATAFORMA VITAL</h1>
+                            <h3>Anamnesis Clinica</h3>
+                        </a>
+                    </div>-->
+                </div>
+            </md-toolbar>
+
+            <md-content flex role="navigation">
+                
+                <ul class="docs-menu" parent-section>
+
+                    <li ng-repeat="section in menu" class="parent-list-item">
+                        <md-button ng-click="activeSection = !activeSection" class="menu-nested-list" ng-href="{{section.url}}"
+                                   ng-class="{'active-section': activeSection}" type="{{section.type}}" aria-label="parent"
+                                   ng-hide="(section.name === 'Usuarios' || section.name === 'Log') && authentication.role!=='Admin'">
+                            <h4 class="menu-heading md-subhead" ng-if="section.type === 'heading'">
+                                {{section.name}}
+                            </h4>
+                            <i class="glyphicon glyphicon-chevron-down" ng-if="section.type === 'heading'"></i>
+
+                            <h4 class="menu-heading md-subhead active" ng-if="section.type === 'link'"  >
+                                {{section.name}}
+                            </h4>
+
+                            <h4 class="menu-heading md-subhead active" ng-if="section.type === 'logout'">
+                                {{section.name}}
+                            </h4>
+                        </md-button>
+
+                        <ul ng-if="section.children" ng-style='{"height":(activeSection?section.children.length * 40:0)+"px"}'>
+                            <li ng-repeat="child in section.children" ng-hide="(child.name === 'Nuevo Usuario' || child.name === 'Lista de Usuarios') && authentication.role!=='Admin'">
+                                <md-button ng-href="{{child.url}}" type="{{child.type}}" aria-label="child" >
+                                    {{child.name}}
+                                </md-button>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                </ul>
+            </md-content>
+
+            <md-toolbar style="height:170px; margin-bottom: 0; background: #DBDFE2;" ng-cloak ng-if="authentication.isAuth">
+                <div layout="column" layout-align="center center" style="height:100%;">
+                    
+                    <div flex layout="row" layout-align="center center">
+                        <img flex src="/images/logo-colciencias.png" width="200" />
+                    </div>
+                    <div flex>
+                        <img src="/images/logo-ean-2.png" width="50" style="margin-left:30px;" />
+                        <img src="/images/logo-osp.png" width="90" style="margin-left:15px;" />
+                    </div>
+                </div>
+            </md-toolbar>
+
+
+        </md-sidenav>
+
+        <div layout="column" layout-fill tabindex="-1" role="main" ng-class="{'layout-width': authentication.isAuth}">
+            <md-content flex class="md-content-padding" layout="column" layout-fill>
+                <md-toolbar ng-cloak class="md-medium-tall" ng-class="{'toolbar-fixed': authentication.isAuth}">
+                    <h2 class="md-toolbar-tools" style="padding-top:40px;">
+                        <md-button ng-click="toggleLeft()" hide-gt-md aria-label="toggleLeft">
+                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        </md-button>
+                        <md-button ng-href="#/home" ng-hide="authentication.isAuth">Anamnesis</md-button>
+                        <span flex></span>
+
+                        <md-button ng-hide="authentication.isAuth" ng-href="#/login">Login</md-button>
+
+                        <md-menu ng-hide="!authentication.isAuth">
+
+                            <md-button class="md-fab md-accent" aria-label="menu" ng-click="$mdOpenMenu($event)">
+                                <md-tooltip>
+                                    {{authentication.userName}}
+                                </md-tooltip>
+                                <i class="fa fa-user"></i>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button disabled="disabled">
+                                        <i class="fa fa-user fa-2x icon-menu"></i>  {{authentication.userName}}
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-href="#/accounts/change/password" ng-click="changePassword();">
+                                        <i class="fa fa-key fa-2x icon-menu"></i>  Cambiar la contrasena
+                                    </md-button>
+                                </md-menu-item>
+
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button ng-click="logOut();">
+                                        <i class="fa fa-sign-out fa-2x icon-menu"></i>  Salir
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                        <span flex="5"></span>
+
+                    </h2>
+
+                </md-toolbar>
+
+
+                <div layout="column" class="fondo" style="height:100%;" 
+                     ng-class="{'top-padding': authentication.isAuth}" flex>
+                    <div data-ng-view="" style="height:100%;" flex></div>
+                </div>
+
+
+                <!--<div id="footer">
+                    <hr />
+                    <div class="md-content-padding">
+                        <p>Created by Arthas. Twitter: <a target="_blank" href="">@arthas</a> </p>
+                        <p>OSP LTDA<a target="_blank" href="http://www.adminsat.com"> adminsat.com</a></p>
+
+                    </div>
+                </div>-->
+                <!-- Footer -->
+                <md-toolbar style="height:100px; margin-bottom: 0; background: #DBDFE2;" ng-if="!authentication.isAuth" ng-cloak>
+                    <div layout="raw" layout-align="center center" style="height:100%;">
+                        <img src="/images/logo-colciencias.png" width="300" />
+                        <img src="/images/logo-ean-2.png" width="80" style="margin-left:30px;" />
+                        <img src="/images/logo-osp.png" width="140" style="margin-left:15px;" />
+                    </div>
+                </md-toolbar>
+
+
+            </md-content>
+
+        </div>
+    </section>
+
+    <!-- 3rd party libraries
+        <script src="scripts/hammer.min.js"></script> -->
+
+    <script src="scripts/jquery-2.1.3.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-sanitize.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-aria.min.js"></script>
+    <script src="scripts/angular-animate.min.js"></script>
+    <script src="scripts/angular-messages.min.js"></script>
+   
+
+    <script src="scripts/d3.min.js" charset="utf-8"></script>
+    <script src="scripts/c3.min.js"></script>
+    <script src="scripts/c3-angular.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+    <script src="scripts/angular-material.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/ng-table/ng-table.min.js"></script>
+    <script src="scripts/kendo.all.min.js"></script>
+
+
+    <script src="scripts/ng-csv.min.js"></script>
+    <script src="scripts/crypto-js.js"></script>
+    <script src="scripts/mdo-angular-cryptography.js"></script>
+    <script src="scripts/angular-jwt.js"></script>
+
+    <!-- Load app main script -->
+    <script src="app/app.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/authInterceptorService.js"></script>
+    <script src="app/services/isAuthorizeService.js"></script>
+    <script src="app/services/userService.js"></script>
+    <script src="app/services/pacienteService.js"></script>
+    <script src="app/services/roleService.js"></script>
+    <script src="app/services/smartTableService.js"></script>
+
+    <script src="app/controllers/indexController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/registerController.js"></script>
+    <script src="app/controllers/accountsListController.js"></script>
+    <script src="app/controllers/editUserController.js"></script>
+    <script src="app/controllers/changePasswordController.js"></script>
+    <script src="app/controllers/pacientesListController.js"></script>
+    <script src="app/controllers/pacientesController.js"></script>
+    <script src="app/controllers/logsListController.js"></script>
+
+</body>
+</html>

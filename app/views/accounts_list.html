@@ -1,0 +1,125 @@
+﻿<style>
+    .form-control:focus {
+        border-color: #6A1B9A;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 2px #6A1B9A;
+    }
+
+    table, tr, th, td,
+    .table > tbody > tr > td,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > td,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > thead > tr > th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+<md-button class="md-fab md-raised btn-courner-2" style="display:none;" aria-label="ir arriba" ng-scroll-up>
+    <md-tooltip md-direction="left">Ir Arriba</md-tooltip>
+        <i class="fa fa-chevron-up"></i>
+</md-button>
+
+<md-button class="md-fab md-primary btn-courner" aria-label="volver" ng-back>
+    <md-tooltip md-direction="left">Volver</md-tooltip>
+    <i class="fa fa-reply-all"></i>
+</md-button>
+
+<div style="height:100%;" class="md-padding"  layout="row" layout-sm="column" layout-align="start" ng-controller="accountsListController" ng-init="getListUsers()">
+
+    <md-card class="md-padding" flex>
+        <md-card-content>
+            <h3>
+                <md-button class="md-fab md-success" type="button" aria-label="ir arriba">
+                    <i class="fa fa-users"></i>
+                </md-button>
+                Lista de Usuarios
+            </h3>
+            <br />
+            <form>
+                <md-content>
+                    <div layout="row" layout-sm="column">
+                        <div class="form-group" flex="75">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+                                <input type="text" class="form-control" placeholder="Buscar ..." ng-model="searchObject" ng-change="filterObject(searchObject)">
+                            </div>
+
+                        </div>
+                        <div flex="5"></div>
+                        <div flex="20">
+                            <button class="btn btn-default"
+                                    ng-csv="objectList" csv-header="getHeader()" filename="{{ filename }}.csv" field-separator="{{separator}}">
+                                Exportar a CSV
+                            </button>
+
+                        </div>
+                    </div>
+                </md-content>
+            </form>
+            <div class="table-responsive-vertical shadow-z-1">
+                <div class="table-responsive">
+                    <table ng-table="tableParams" class="table table-hover table-striped table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th custom-sort sort="sort" order="'Name'" ng-click="sortObject()"> Nombre </th>
+                                <th custom-sort sort="sort" order="'Email'" ng-click="sortObject()"> Email </th>
+                                <th custom-sort sort="sort" order="'Role'" ng-click="sortObject()"> Rol </th>
+                                <th>Detalles</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in pagedItems[currentPage]">
+                                <td>{{user.Name}}</td>
+                                <td>{{user.Email}}</td>
+                                <td>{{user.Role}}</td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-raised" aria-label="Details" ng-click="showAlert($event, user.Id)">
+                                        <i class="fa fa-info"></i>
+                                    </md-button>
+                                </td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-primary" aria-label="Edit" ng-click="editAccount(user)">
+                                        <i class="fa fa-pencil"></i>
+                                    </md-button>
+                                </td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-accent" aria-label="Delete" ng-click="showAlertRemoveAccount($event, user)">
+                                        <i class="fa fa-trash"></i>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <td colspan="6">
+                            <ul class="pagination pull-right">
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Anterior</a>
+                                </li>
+
+                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                    ng-class="{active: n == currentPage}"
+                                    ng-click="setPage(n)">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+
+                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Siguiente »</a>
+                                </li>
+                            </ul>
+                        </td>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+
+</div>

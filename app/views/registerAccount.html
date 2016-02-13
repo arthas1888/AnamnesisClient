@@ -1,0 +1,136 @@
+﻿<md-button class="md-fab md-raised btn-courner-2" style="display:none;" aria-label="ir arriba" ng-scroll-up>
+    <md-tooltip md-direction="left">Ir Arriba</md-tooltip>
+    <i class="fa fa-chevron-up"></i>
+</md-button>
+
+<md-button class="md-fab md-primary btn-courner" aria-label="volver" ng-back>
+    <md-tooltip md-direction="left">Volver</md-tooltip>
+    <i class="fa fa-reply-all"></i>
+</md-button>
+
+<div style="height:100%;" layout="row" layout-sm="column" layout-align="start" ng-controller="signupController" class="md-padding">
+
+    <div flex hide-gt-sm style="padding: 20px 20px 20px 20px;">
+        <h3>Usuarios</h3>
+        <p style="text-align: justify;">
+            <small>
+                En este modulo se puede registrar un nuevo usuario que tenga acceso a herramientas como el Log de la plataforma, creacion de usuarios, entre otras.
+            </small>
+        </p>
+    </div>
+
+    <md-card class="md-padding" flex>
+
+        <form method="post" id="idLogin" name="fomrularioRegister"
+              ng-submit="fomrularioRegister.$valid && signUp($event)"
+              role="form" novalidate>
+
+            <md-card-content>
+
+                <h3>
+                    <md-button class="md-fab md-success" type="button" aria-label="ir arriba">
+                        <i class="fa fa-user"></i>
+                    </md-button>
+                    Nuevo Usuario
+                </h3>
+                <md-content>
+                    <md-list>
+                        <md-subheader class="md-no-sticky">Información Personal</md-subheader>
+                        <md-list-item class="md-2-line">
+
+                            <div class="md-list-item-text">
+
+                                <md-input-container flex>
+                                    <label>Nombres</label>
+                                    <input ng-model="registration.Name" name="Name" required>
+                                    <div class="errors" ng-messages="fomrularioRegister.Name.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Apellidos</label>
+                                    <input ng-model="registration.LastName" name="LastName" required>
+                                    <div class="errors" ng-messages="fomrularioRegister.LastName.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Correo Electronico (Username)</label>
+                                    <input type="email" ng-model="registration.Email" name="Email" required>
+                                    <div class="errors" ng-messages="fomrularioRegister.Email.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Contraseña</label>
+                                    <input type="password" ng-model="registration.Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" required>
+                                    <div class="errors" ng-messages="fomrularioRegister.password.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                        <div ng-message="pattern">Introduzca una contraseña con al menos 6 digitos que incluya una letra mayuscula, una minuscula y un numero.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Confirme la Contraseña</label>
+                                    <input type="password" ng-model="registration.ConfirmPassword" name="ConfirmPassword" ng-match="registration.Password" required>
+                                    <div class="errors" ng-messages="fomrularioRegister.ConfirmPassword.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                        <div ng-message="ngMatch">Las contraseñas no coinciden.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Ciudad</label>
+                                    <input ng-model="registration.City" name="City">
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Direccion</label>
+                                    <input ng-model="registration.Address" name="Address">
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Numero Celular</label>
+                                    <input type="number" ng-model="registration.Number" name="Number">
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <md-select name="role" ng-model="registration.Role" aria-label="Rol de usuario" placeholder="Rol de usuario" required>
+                                        <md-optgroup label="Roles">
+                                            <md-option value=1>Usuario</md-option>
+                                            <md-option value=2>Administrador</md-option>
+                                        </md-optgroup>
+                                    </md-select>
+                                    <div class="errors" ng-messages="fomrularioRegister.role.$error">
+                                        <div ng-message="required">Este campo es obligatorio.</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+                            <div hide show-gt-md class="md-list-item-text"></div>
+
+                        </md-list-item>
+
+                    </md-list>
+                </md-content>
+            </md-card-content>
+            <div class="md-actions" layout="row" layout-align="end center">
+                <md-button type="button" ng-href="/#/accounts/list" class="md-raised"><i class="icon-reply"></i> Cancelar</md-button>
+                <md-button type="submit" ng-disabled="fomrularioRegister.$invalid" class="md-raised md-primary">Registrar</md-button>
+            </div>
+        </form>
+    </md-card>
+
+    <div flex="40" hide-sm style="padding: 20px 20px 20px 20px;">
+        <h3>Usuarios</h3>
+        <p style="text-align: justify;">
+            <small>
+                En este modulo se puede registrar un nuevo usuario que tenga acceso a herramientas como el Log de la plataforma, creacion de usuarios, entre otras.
+            </small>
+        </p>
+    </div>
+
+</div>

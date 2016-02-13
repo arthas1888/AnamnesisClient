@@ -1,0 +1,92 @@
+﻿<md-dialog aria-label="Paciente ({{user.Name}})">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Paciente ({{user.Name}})</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancelar">
+                <i class="fa fa-close"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:500px; ">       
+        <div class="table-responsive">
+            <table class="table table-hover table-mc-red table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Nombres</th>
+                        <td>{{user.Name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Apellidos</th>
+                        <td>{{user.LastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cedula</th>
+                        <td>{{user.Nit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha Nacimiento</th>
+                        <td>{{user.BirthDate| date:"MM/dd/yyyy" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>{{user.birthYear}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{user.Email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefono</th>
+                        <td>{{user.Contact}}</td>
+                    </tr>
+                    <tr>
+                        <th>Celular</th>
+                        <td>{{user.PhoneNumber}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sistema Salud</th>
+                        <td>{{user.HealthCare}}</td>
+                    </tr>
+                    <tr>
+                        <th>RH</th>
+                        <td>{{user.RH}}</td>
+                    </tr>
+                    <tr>
+                        <th>Genero</th>
+                        <td ng-switch="user.Gender">
+                            <div ng-switch-when="M">Masculino</div>
+                            <div ng-switch-when="F">Femenino</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Alergias</th>
+                        <td>{{user.Allergy}}</td>
+                    </tr>
+                    <tr>
+                        <th>Medicamentos Permanentes</th>
+                        <td>{{user.Medicines}}</td>
+                    </tr>
+                    <tr>
+                        <th>Enfermedades Importantes</th>
+                        <td>{{user.ImportantIllness}}</td>
+                    </tr>
+                    <tr>
+                        <th>Antecedentes Clinicos</th>
+                        <td>{{user.MedicalHistory}}</td>
+                    </tr>
+                    <tr>
+                        <th>Create Date</th>
+                        <td>{{user.CreateDate|date: 'medium'}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+</md-dialog-content>
+    <div class="md-actions" layout="row">
+        <md-button class="md-primary" ng-click="answer('not useful')">
+            Aceptar
+        </md-button>
+    </div>
+</md-dialog>

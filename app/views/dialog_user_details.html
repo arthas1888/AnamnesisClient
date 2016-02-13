@@ -1,0 +1,51 @@
+﻿<md-dialog aria-label="User ({{user.UserName}})">
+    <md-content class="sticky-container">
+        <md-subheader class="md-sticky-no-effect">User ({{user.UserName}})</md-subheader>
+        <div class="dialog-content">
+
+            <table class="table table-hover table-mc-red table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{user.Name}}</td>
+                    </tr>
+                    <tr>
+                        <th>LastName</th>
+                        <td>{{user.LastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{user.Email}}</td>
+                    </tr>
+                    <tr>
+                        <th>City</th>
+                        <td>{{user.City}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{user.Address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>{{user.Number}}</td>
+                    </tr>
+                    <tr>
+                        <th>Create Date</th>
+                        <td>{{user.CreateDate|date: 'medium'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{user.Id}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-content>
+    <div class="md-actions" layout="row">
+
+        <span flex></span>
+        <md-button class="md-primary" ng-click="answer('not useful')">
+            Aceptar
+        </md-button>
+    </div>
+</md-dialog>

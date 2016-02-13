@@ -1,0 +1,52 @@
+﻿<md-dialog aria-label="Detalles de Log">
+    <md-content class="sticky-container">
+        <md-subheader class="md-sticky-no-effect">Detalles de Log</md-subheader>
+        <div class="dialog-content">
+
+            <table class="table table-hover table-mc-red table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>{{user.Date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Hora</th>
+                        <td>{{user.Time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Accion</th>
+                        <td>{{user.Action}}</td>
+                    </tr>
+                    <tr>
+                        <th>Objeto</th>
+                        <td>{{user.Object}}</td>
+                    </tr>
+                    <tr>
+                        <th>Usuario</th>
+                        <td>{{user.User}}</td>
+                    </tr>
+                    <tr>
+                        <th>Rol</th>
+                        <td>{{user.Role}}</td>
+                    </tr>
+                    <tr>
+                        <th>Informacion del Navegador</th>
+                        <td>{{user.Browser}}</td>
+                    </tr>
+                    <tr>
+                        <th>Informacion de Request</th>
+                        <td>{{user.Request}}</td>
+                    </tr>                    
+
+                </tbody>
+            </table>
+        </div>
+    </md-content>
+    <div class="md-actions" layout="row">
+
+        <span flex></span>
+        <md-button class="md-primary" ng-click="answer('not useful')">
+            Aceptar
+        </md-button>
+    </div>
+</md-dialog>

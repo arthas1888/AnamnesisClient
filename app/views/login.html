@@ -1,0 +1,59 @@
+﻿<style>
+    md-input-container:not(.md-input-invalid) > md-icon.email {
+        color: green;
+    }
+
+    md-input-container:not(.md-input-invalid) > md-icon.password {
+        color: dodgerblue;
+    }
+
+    md-input-container.md-input-invalid > md-icon.email, md-input-container.md-input-invalid > md-icon.password {
+        color: red;
+    }
+    body, html {
+        height: 100%;
+    }   
+    md-card>:not(md-card-content) img, md-card>img {
+       width: 300px;
+    }
+</style>
+
+<div layout="raw" layout-align="center center" flex style="padding-top:50px;">
+    <div flex-sm="10" flex-md="10" flex="30"></div>
+    <md-card class="md-padding" ng-controller="loginController" flex>
+        <form method="post" id="idLogin" name="LoginForm" ng-submit="LoginForm.$valid && login($event)">
+
+            
+            <md-card-content>
+
+
+                <div layout="row" layout-align="center center"><img src="/images/horizontaL-WEB.png" /> </div>
+                <br>
+
+                <md-input-container>
+                    <!-- Use floating placeholder instead of label -->
+                    <md-icon class="email"><i class="fa fa-envelope"></i></md-icon>
+                    <input ng-model="loginData.userName" type="email" placeholder="Correo *" name="userName" ng-required="true">
+                    <div class="errors" ng-messages="LoginForm.userName.$error"  ng-if="LoginForm.$dirty">
+                        <div ng-message="required">Este campo es obligatorio.</div>
+                        <div ng-message="email">Escriba un correo electrónico válido.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container>
+                    <!-- Use floating placeholder instead of label -->
+                    <md-icon class="password"><i class="fa fa-key"></i></md-icon>
+                    <input ng-model="loginData.password" type="password" placeholder="Contraseña *" name="password" ng-required="true">
+                    <div class="errors" ng-messages="LoginForm.password.$error"  ng-if="LoginForm.$dirty">
+                        <div ng-message="required">Este campo es obligatorio.</div>
+                    </div>
+                </md-input-container>
+
+            </md-card-content>
+            <div class="md-actions" layout="row" layout-align="end center">
+                <md-button class="md-raised" ng-disabled="LoginForm.$invalid">Iniciar Sesion</md-button>
+            </div>
+        </form>
+    </md-card>
+    <div flex-sm="10" flex-md="10" flex="30"></div>
+</div>
