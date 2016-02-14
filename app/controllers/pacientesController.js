@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-app.controller('pacientesNewController', ['$scope', '$location', '$timeout', 'authService', 'isAuthorizeService',
-    function ($scope, $location, $timeout, authService, isAuthorizeService) {
+app.controller('pacientesNewController', ['$scope', '$location', '$timeout', 'authService', 
+    function ($scope, $location, $timeout, authService) {
 
         $scope.message = "";
         $scope.option = "Crear";

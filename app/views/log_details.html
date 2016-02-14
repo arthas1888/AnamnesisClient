@@ -29,6 +29,10 @@
                         <th>Rol</th>
                         <td>{{user.Role}}</td>
                     </tr>
+                    <tr ng-show="user.Id_object">
+                        <th>Información del campo afectado</th>
+                        <td><strong>Username/NIT: </strong>{{user.Id_object}} <strong>Nombres: </strong>{{user.Name}}</td>
+                    </tr>
                     <tr>
                         <th>Informacion del Navegador</th>
                         <td>{{user.Browser}}</td>

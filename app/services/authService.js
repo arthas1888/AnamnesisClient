@@ -66,7 +66,7 @@ app.factory('authService', ['$http', '$q', '$mdDialog', 'localStorageService', '
             _authentication.userName = loginData.userName;
             _authentication.role = response.role;
             roleService.setRole(response.role);
-            console.log("user: " + localStorageService.get("authorizationData").userName + " role: " + roleService.getRole());
+            //console.log("user: " + localStorageService.get("authorizationData").userName + " role: " + roleService.getRole());
 
         }).error(function (err, status) {
             _logOut();
@@ -80,13 +80,17 @@ app.factory('authService', ['$http', '$q', '$mdDialog', 'localStorageService', '
         var authData = localStorageService.get("authorizationData");
         
         if (authData) {
-            $http.post(serviceBase + 'api/Account/Logout');
-            localStorageService.remove('authorizationData');
-            localStorageService.remove('roleUser');
-            _authentication.isAuth = false;
-            _authentication.userName = "";
-            _authentication.role = "";
-            roleService.setRole("");
+            
+            $http.post(serviceBase + 'api/Account/Logout').success(function (response) {
+                
+                localStorageService.remove('authorizationData');
+                localStorageService.remove('roleUser');
+                _authentication.isAuth = false;
+                _authentication.userName = "";
+                _authentication.role = "";
+                roleService.setRole("");
+            });
+            
         }
 
     };

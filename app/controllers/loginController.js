@@ -19,6 +19,7 @@ app.controller('loginController', ['$scope', 'authService', '$location', 'localS
             $location.path('/dashboard');
         }
     } else {
+        authService.logOut();
         $rootScope.authentication = {
             isAuth: false,
             userName: ""
@@ -33,7 +34,8 @@ app.controller('loginController', ['$scope', 'authService', '$location', 'localS
             $location.path(response["data"]["url"]);
         },
         function (error) {
-            console.log(error);
+            //console.log(error);
+            $scope.loginData.password = "";
             if (error.data.hasOwnProperty('error_description')) {
                 
                 $scope.message = error.data.error_description;

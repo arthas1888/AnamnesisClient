@@ -70,7 +70,7 @@ app.controller('accountsListController', ['$scope', 'authService', '$mdDialog', 
         }
 
         $scope.editAccount = function (user) {
-            userService.setUser(user);
+            userService.setUser(user);            
             $location.path('/accounts/edit');
         }
 

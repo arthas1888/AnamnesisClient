@@ -59,7 +59,7 @@
                                 <th custom-sort sort="sort" order="'RH'" ng-click="sortObject()"> RH </th>
                                 <th>Detalles</th>
                                 <th>Editar</th>
-                                <th>Eliminar</th>
+                                <th ng-hide="authentication.role!=='Admin'">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,7 +78,7 @@
                                         <i class="fa fa-pencil"></i>
                                     </md-button>
                                 </td>
-                                <td>
+                                <td ng-hide="authentication.role!=='Admin'">
                                     <md-button class="md-fab md-mini md-accent" aria-label="Delete" ng-click="showAlertRemoveAccount($event, object)">
                                         <i class="fa fa-trash"></i>
                                     </md-button>

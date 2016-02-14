@@ -63,6 +63,12 @@ app.controller('logsListController', ['$scope', 'authService', '$mdDialog', '$lo
               
                 $scope.objectList = response['data'];
                 $scope.pagedItems = smartTableService.search($scope.objectList);
+                $scope.sort = {
+                    sortType: 'dateTime',
+                    sortReverse: false
+                };
+                $scope.sortObject();
+                $("body").animate({ scrollTop: 600 }, "slow");
             });
         }
 

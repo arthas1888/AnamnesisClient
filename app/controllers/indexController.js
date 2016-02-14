@@ -3,10 +3,10 @@ app.controller('indexController', ['$scope', '$location', 'authService', '$mdSid
     function ($scope, $location, authService, $mdSidenav, $log, localStorageService, $rootScope) {
 
 
-        $scope.logOut = function () {
+        $scope.logOut = function () {            
             authService.logOut();
             $rootScope.authentication.isAuth = false;
-            $location.path('/home');
+            $location.path('/login');
         }
 
         $scope.activeSection = false;

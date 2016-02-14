@@ -354,7 +354,7 @@ app.factory('dataService', function () {
 app.directive("ngScroll", function ($window, $document) {
     return function (scope, element, attrs) {
         angular.element($window).bind("scroll", function () {
-            console.log("entra aca");
+            
             var offsetHeight = $document[0].all[37].offsetHeight;
             if ((this.pageYOffset + this.innerHeight) >= offsetHeight) {
                 element.css('bottom', '70px');

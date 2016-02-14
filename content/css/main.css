@@ -242,14 +242,14 @@
           bottom: 10px;
           position: fixed;
           right: 10px;
-          z-index: 21;
+          z-index: 30 !important;
       }
       
       .btn-courner-2{
           bottom: 10px;
           position: fixed;
           right: 80px;
-          z-index: 21;
+          z-index: 30 !important;
       }
       
       .rotate-right {

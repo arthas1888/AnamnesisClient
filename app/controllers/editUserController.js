@@ -12,9 +12,11 @@ function ($scope, authService, userService, $timeout, $location) {
         { value: 2, name: 'Administrador' },
     ];
     
-    $scope.editUser = function () {
+    $scope.editUser = function ($event) {
+        console.log("user", $scope.user);
         authService.edit("api/Account/EditUser", $scope.user).then(function (response) {            
             $scope.message = "Usuario actualizado satisfactoriamente";
+            authService.showMessage($event, $scope.message);
             startTimer();
         },
         function (error) {            
@@ -25,6 +27,7 @@ function ($scope, authService, userService, $timeout, $location) {
                 }
             }
             $scope.message = "Usuario no actualizado debido a: " + errors.join(' ');
+            authService.showMessage($event, $scope.message);
         });
 
     }
